@@ -233,4 +233,100 @@ def find_critical_temperature():
 	plt.show()
 
 
+def find_ground_energy_2D():
+	energy_model=[]
+	intervals=10
+	J1=np.linspace(1.0,10.0,intervals)
+	energy=np.zeros(intervals)
+	for j in range(len(J1)):
+		j_part=J1[j]
+		T=0.001
+		lattice=initial_state
+		E1=0.0
+		for i in range(steps_to_equilibrium):
+			functions.metropolis(lattice,T,j_part,h)
+
+		for i in range(steps_to_calculate):
+			functions.metropolis(lattice,T,j_part,h)
+			E=functions.find_energy(lattice,j_part,h)
+			E1=E1+E
+		E1_av=E1/steps_to_calculate
+		energy[j]=E1_av
+	
+	fig=plt.figure()
+	plt.plot(J1,energy,'ro')
+	fig.suptitle('2D ground state energy as function of J',fontsize=15)
+	plt.xlabel('J-interaction term',fontsize=13)
+	plt.ylabel('ground state energy [J]', fontsize=13)
+	p=np.polyfit(J1,energy,1)
+	for i in J1:
+		energy_model.append(i*p[0]+p[1])
+	plt.plot(J1,energy_model)
+	print p[0]
+	plt.show()
+
+def find_ground_energy_3D():
+	energy_model=[]
+	intervals=10
+	J1=np.linspace(1.0,10.0,intervals)
+	energy=np.zeros(intervals)
+	for j in range(len(J1)):
+		j_part=J1[j]
+		T=0.001
+		lattice=initial_state_3D
+		E1=0.0
+		for i in range(steps_to_equilibrium):
+			functions.metropolis_3D(lattice,T,j_part,h)
+
+		for i in range(steps_to_calculate):
+			functions.metropolis_3D(lattice,T,j_part,h)
+			E=functions.find_energy_3D(lattice,j_part,h)
+			E1=E1+E
+		E1_av=E1/steps_to_calculate
+		energy[j]=E1_av
+	
+	fig=plt.figure()
+	plt.plot(J1,energy,'ro')
+	fig.suptitle('3D ground state energy as function of J',fontsize=15)
+	plt.xlabel('J-interaction term',fontsize=13)
+	plt.ylabel('ground state energy [J]', fontsize=13)
+	p=np.polyfit(J1,energy,1)
+	for i in J1:
+		energy_model.append(i*p[0]+p[1])
+	plt.plot(J1,energy_model)
+	print p[0]
+	plt.show()
+
+
+def find_ground_energy_1D():
+	energy_model=[]
+	intervals=10
+	J1=np.linspace(1.0,10.0,intervals)
+	energy=np.zeros(intervals)
+	for j in range(len(J1)):
+		j_part=J1[j]
+		T=0.001
+		lattice=initial_state_1D
+		E1=0.0
+		for i in range(steps_to_equilibrium):
+			functions.metropolis_1D(lattice,T,j_part,h)
+
+		for i in range(steps_to_calculate):
+			functions.metropolis_1D(lattice,T,j_part,h)
+			E=functions.find_energy_1D(lattice,j_part,h)
+			E1=E1+E
+		E1_av=E1/steps_to_calculate
+		energy[j]=E1_av
+	
+	fig=plt.figure()
+	plt.plot(J1,energy,'ro')
+	fig.suptitle('1D ground state energy as function of J',fontsize=15)
+	plt.xlabel('J-interaction term',fontsize=13)
+	plt.ylabel('ground state energy [J]', fontsize=13)
+	p=np.polyfit(J1,energy,1)
+	for i in J1:
+		energy_model.append(i*p[0]+p[1])
+	plt.plot(J1,energy_model)
+	print p[0]
+	plt.show()
 
