@@ -22,7 +22,7 @@ def metropolis(lattice,kT,J,h):
                 lattice[i,j]=-lattice[i,j]
             elif random.random()<np.exp((delta_H)/kT):
                 lattice[i,j]=-lattice[i,j]
-return lattice
+    return lattice
 
 
 def metropolis_3D(lattice,kT,J,h):
