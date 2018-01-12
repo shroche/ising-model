@@ -1,12 +1,32 @@
-N=500
-J=1.0
-h=-1.0
+#!usr/bin/env python
+
+
+"importing relevant packages"
+
+import random
+import functions
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
+
+"defining relevant parameters"
+
+N=10					#define your lattice size
+J=30.0					#interaction term
+h=0.0					#external magnetic field
 steps=1000
-steps_to_equilibrium=1000
-steps_to_calculate=500
+steps_to_equilibrium=1500
+steps_to_calculate=1000
 initial_state = 2*np.random.randint(2, size=(N,N))-1
-initial_state_3D=2*np.random.randint(2, size=(N,N,N))-1
+initial_state_3D=2*np.random.randint(2, size=(N,N,N))-1			#initial random configurations of different dimension lattices
 initial_state_1D = 2*np.random.randint(2, size=(N))-1
+
+
+
+
+"The following three functions plot the physical quantities in the case of 1D, 2D and 3D"
 
 def plot_physical_quantities_2D():
 	intervals=200
@@ -76,6 +96,7 @@ def plot_physical_quantities_2D():
 	plot_mag()
 	plot_sus()
 	plot_sc()
+
 
 def plot_physical_quantities_3D():
 	intervals=600
@@ -147,6 +168,7 @@ def plot_physical_quantities_3D():
 	plot_sus()
 	plot_sc()
 
+
 def plot_physical_quantities_1D():
 	intervals=600
 	T1=np.linspace(0.1,7.0,intervals)
@@ -215,9 +237,14 @@ def plot_physical_quantities_1D():
 	plot_sus()
 	plot_sc()
 
+
+
+
+"This function plots the recorded critical temperatures as a function of lattice size to extrapolate the critical temperature of an infinite lattice"
+
 def find_critical_temperature():
 	x=[0.0001,0.0004,0.0025,0.01]
-	y=[2.298,2.314,2.337,2.5]
+	y=[2.27,2.28,2.33,2.52]
 	fig=plt.figure()
 	plt.plot(x,y,'ko')
 	fig.suptitle('Critical temperature for different sized lattices',fontsize=15)
@@ -232,6 +259,10 @@ def find_critical_temperature():
 	plt.plot(x,y_model)
 	plt.show()
 
+
+
+
+"These functions find the relationship between the interaction term J and the ground energy of the system, in the 1, 2 and 3 dimensional cases"
 
 def find_ground_energy_2D():
 	energy_model=[]
@@ -329,4 +360,6 @@ def find_ground_energy_1D():
 	plt.plot(J1,energy_model)
 	print p[0]
 	plt.show()
+
+
 
